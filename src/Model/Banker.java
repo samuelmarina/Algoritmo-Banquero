@@ -1,50 +1,94 @@
 package Model;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Banker {
 
-    int p;  //Numero de procesos (sucursales)
-    int r;  //Numero de recursos (empleados)
+    int p = 6;  //Numero de procesos (sucursales)
+    int r = 6;  //Numero de recursos (empleados)
 
     //Matrices
-    int[][] requerimiento;      //Matriz de requerimiento
-    int[][] max;
-    int[][] inicial;            //Matriz inicial (indicada por el usuario)
-
-    int[] disp; //Recursos disponibles
-    int[] secuencia;
+//    int[][] requerimiento;      //Matriz de requerimiento
+//    int[][] max;                //Matriz de cantidad de empleados a necesitar
+//    int[][] inicial;            //Matriz inicial (indicada por el usuario)
     
-    public Banker(int p, int r) {
-        this.p = 5;
-        this.r = 3;
-        this.requerimiento = new int[p][r];
-        this.secuencia = new int[p];
-        this.inicializarValores();
-        this.calcularRequerimiento();
-        this.safety();
+    //Matrices
+    ArrayList<ArrayList<Integer>> requerimiento = new ArrayList<>();
+    ArrayList<ArrayList<Integer>> max = new ArrayList<>();
+    ArrayList<ArrayList<Integer>> inicial = new ArrayList<>();
+    
+    int[] disp; //Recursos disponibles
+    int[] secuencia;    //Cambiar a lista
+    
+    ArrayList<String> sucursales = new ArrayList<>();
+    ArrayList<String> empleados = new ArrayList<>();
+ 
+    
+    public Banker() {
+//        this.requerimiento = new int[p][r];
+//        this.secuencia = new int[p];
+        this.inicializarValores(p, r);
+    }
+    
+    /**
+     * Lista para obtener los nombres de las sucursales
+     */
+    public void inicializarSucursales(){
+        String[] temp = {
+            "Macaracuay",
+            "Vizcara",
+            "Las Mercedes",
+            "Santa Paula",
+            "Chuao",
+            "Caurimare"
+        };
+        
+        sucursales.addAll(Arrays.asList(temp));
+    }
+    
+    /**
+     * Lista para obtener los tipos de empleados
+     */
+    public void inicializarEmpleados(){
+        String[] temp = {
+            "Cajeros",
+            "Seguridad",
+            "Empaquetamiento",
+            "Limpieza",
+            "Gerencia",
+            "Abastecimiento"
+        };
+        
+        empleados.addAll(Arrays.asList(temp));
     }
 
-    //Esta hay que cambiarla para colocar los valores segun
-    //indique el usuario
-    
-    public void inicializarValores() {
-        inicial = new int[][]{{0, 1, 0}, //P0    
-        {2, 0, 0}, //P1 
-        {3, 0, 2}, //P2 
-        {2, 1, 1}, //P3 
-        {0, 0, 2}};
-
-        max = new int[][]{{7, 5, 3}, //P0 
-        {3, 2, 2}, //P1 
-        {9, 0, 2}, //P2 
-        {2, 2, 2}, //P3  
-        {4, 3, 3}};
-
-        disp = new int[]{3, 3, 2};
+    /**
+     * Inicializa las dos matrices con ceros
+     * @param p cantidad de procesos (sucursales)
+     * @param r cantidad de recursos (empleados)
+     */
+    public void inicializarValores(int p, int r) {
+//        inicial = new int[p][r];
+//        max = new int[p][r];
+//        
+        for (int i = 0; i < p; i++) {
+            for (int j = 0; j < r; j++) {
+                inicial.get(i).set(j, 0);
+                max.get(i).set(j, 0);
+            }
+        }
+        
+        disp = new int[r];
+        Arrays.fill(disp, 0);
+        
+        this.inicializarSucursales();
+        this.inicializarEmpleados();
     }
     /**
-     * Algoritmo de seguridad que indica si existe
+     * Algoritmo del banquero que indica si existe
      * una secuencia segura para evitar un interbloqueo
      */
     public void safety() {
@@ -76,7 +120,8 @@ public class Banker {
                         //En caso de que la cantidad de empleados necesaria para que
                         //la sucursal funcione es menor que los que se encuentran,
                         //entonces ocurrió un interbloqueo
-                        if (requerimiento[i][j] > work[j]) break; 
+//                        if (requerimiento[i][j] > work[j]) break; 
+                        if(requerimiento.get(i).get(j) > work[j]) break;
                     }
                     
                     //Si esto se cumple, entonces se pudo cubrir la cantidad de empleados
@@ -110,7 +155,7 @@ public class Banker {
     }
     
     /**
-     * Calcula la matriz de requerimientos
+     * Calcula la matriz de requerimientos (max-inicial)
      */
     public void calcularRequerimiento() {
         for (int i = 0; i < p; i++) {
@@ -118,6 +163,22 @@ public class Banker {
                 requerimiento[i][j] = max[i][j] - inicial[i][j];
             }
         }
+    }
+    
+    /**
+     * Agregar un empleado en específico
+     * @param pos la posición del empleado a aumentar
+     */
+    public void agregarEmpleado(int pos){
+        disp[pos] += 1;
+    }
+    
+    /**
+     * Eliminar un empleado en específico
+     * @param pos la posición del empleado a restar
+     */
+    public void eliminarEmpleado(int pos){
+        disp[pos] -= 1;
     }
 
 }
