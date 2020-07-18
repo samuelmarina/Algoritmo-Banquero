@@ -71,7 +71,7 @@ public class Banker {
         int sucursal = box.getSelectedIndex()-1;
         for (int i = 0; i < r; i++) {
             String respuesta = JOptionPane.showInputDialog("Ingrese cantidad de empleados de " + empleados.get(i) +": ");
-            if(respuesta == null){
+            if(respuesta == null && !respuesta.isEmpty()){
                 break;
             }
             while(!isPositiveNumeric(respuesta)){
