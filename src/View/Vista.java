@@ -96,6 +96,7 @@ public class Vista extends javax.swing.JFrame {
         jButton16 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         reqTextArea.setColumns(20);
         reqTextArea.setRows(5);
@@ -195,7 +196,7 @@ public class Vista extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jLabel7.setText("Cajeros");
+        jLabel7.setText("Gerencia");
 
         jTextField5.setText("jTextField1");
 
@@ -546,13 +547,17 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
-        this.banker.editarMatrizPanel(reqTextArea, jComboBox1, this.banker.max);
+    
+        if(jComboBox1.getSelectedIndex() > 0){
+            this.banker.editarMatrizPanel(reqTextArea, jComboBox1, this.banker.max);
+        }
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
-        this.banker.editarMatrizPanel(inicialTextArea, jComboBox2, this.banker.inicial);
+
+        if(jComboBox1.getSelectedIndex() > 0){
+            this.banker.editarMatrizPanel(inicialTextArea, jComboBox2, this.banker.inicial);
+        }
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
