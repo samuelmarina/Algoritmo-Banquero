@@ -4,6 +4,8 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class Banker {
 
@@ -13,6 +15,7 @@ public class Banker {
     //Matrices
     public int[][] requerimiento;
     public ArrayList<ArrayList<Integer>> max = new ArrayList<>();
+//    max.get(numDeLaSuc).set(numDelEmp, numAPasar)
     public ArrayList<ArrayList<Integer>> inicial = new ArrayList<>();
     
     public int[] disp; //Recursos disponibles
@@ -26,6 +29,21 @@ public class Banker {
     
     public Banker() {
         this.inicializarValores(p, r);
+    }
+    
+    public void Print(JTextArea area){
+        String text = "";
+        for (int i = 0; i < r; i++) {
+            text += "\t" + this.empleados.get(i).charAt(0);
+        }
+        for (int i = 0; i < p; i++) {
+            text += "\n" + this.sucursales.get(i).charAt(0);
+            for (int j = 0; j < r; j++) {
+                text += "\t" + inicial.get(i).get(j);
+            }
+        }
+        
+        area.setText(text);
     }
     
     public void Test(){

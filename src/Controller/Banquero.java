@@ -18,7 +18,7 @@ public class Banquero {
      */
     public static void main(String[] args) {
        Banker b = new Banker();
-       
+       b.Test();
     }
     
 }
