@@ -36,11 +36,12 @@ public class Banker {
     }
 
      /**
-     * Organiza la matriz inicial
+     * Imprime la matriz indicada
      * @param area TextArea que se mostrara
+     * @param matrix matriz a imprimir
      */
     
-    public void PrintIniciales(JTextArea area){
+    public void printMatrix(JTextArea area, ArrayList<ArrayList<Integer>> matrix){
         String text = "";
         for (int i = 0; i < r; i++) {
             text += "\t" + this.empleados.get(i).charAt(0);
@@ -50,31 +51,9 @@ public class Banker {
         for (int i = 0; i < p; i++) {
             text += "\n" + this.sucursales.get(i).charAt(0);
             for (int j = 0; j < r; j++) {
-                text += "\t" + inicial.get(i).get(j);
+                text += "\t" + matrix.get(i).get(j);
             }
 
-            text += "\t" + "\n";
-        }
-        
-        area.setText(text);
-    }
-    
-     /**
-     * Organiza la matriz de requeridos
-     * @param area TextArea que se mostrara
-     */
-    
-    public void PrintRequerido(JTextArea area){
-        String text = "";
-        for (int i = 0; i < r; i++) {
-            text += "\t" + this.empleados.get(i).charAt(0);
-        }
-        text += "\n";
-        for (int i = 0; i < p; i++) {
-            text += "\n" + this.sucursales.get(i).charAt(0);
-            for (int j = 0; j < r; j++) {
-                text += "\t" + max.get(i).get(j);
-            }
             text += "\t" + "\n";
         }
         
@@ -90,13 +69,38 @@ public class Banker {
     
     public void editarMatrizPanel(JTextArea area, JComboBox box, ArrayList matriz){
         int sucursal = box.getSelectedIndex()-1;
-        area.setText("");
-        this.empleados.forEach((e) -> {
-            String respuesta = JOptionPane.showInputDialog("Ingrese cantidad de empleados de " + e +": ");
-            if((respuesta) != ""){
-                this.editarMatriz(matriz, sucursal, this.empleados.indexOf(e), Integer.parseInt(respuesta));}
-        });
-        this.PrintRequerido(area);
+        for (int i = 0; i < r; i++) {
+            String respuesta = JOptionPane.showInputDialog("Ingrese cantidad de empleados de " + empleados.get(i) +": ");
+            if(respuesta == null){
+                break;
+            }
+            while(!isPositiveNumeric(respuesta)){
+                JOptionPane.showMessageDialog(null, "Lo que ingresó es inválido. Inténtelo de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+                respuesta = JOptionPane.showInputDialog("Ingrese cantidad de empleados de " + empleados.get(i) +": ");
+            }
+            this.editarMatriz(matriz, sucursal, i, Integer.parseInt(respuesta));
+        }
+        this.printMatrix(area, matriz);
+    }
+    
+    /**
+     * Verifica si una string es un numero positivo
+     * @param strNum string a verificar
+     * @return true si es un numero positivo
+     */
+    public static boolean isPositiveNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+            if (d < 0) {
+                return false;
+            }
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
     
     public void Test(){

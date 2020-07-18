@@ -27,8 +27,8 @@ public class Vista extends javax.swing.JFrame {
         jTextField7.setText("");
 
         //Inicializa las matrices en 0
-        banker.PrintIniciales(jTextArea2);
-        banker.PrintRequerido(jTextArea1);
+        banker.printMatrix(reqTextArea, banker.max);
+        banker.printMatrix(inicialTextArea, banker.inicial);
 
         //Define los JComboBox con las sucursales
         for (String s : banker.sucursales) {
@@ -57,9 +57,9 @@ public class Vista extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        reqTextArea = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        inicialTextArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -97,13 +97,13 @@ public class Vista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        reqTextArea.setColumns(20);
+        reqTextArea.setRows(5);
+        jScrollPane1.setViewportView(reqTextArea);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        inicialTextArea.setColumns(20);
+        inicialTextArea.setRows(5);
+        jScrollPane2.setViewportView(inicialTextArea);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Matriz Requerida");
@@ -245,6 +245,11 @@ public class Vista extends javax.swing.JFrame {
         jLabel9.setText("Simulación Supermercados Gama");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sucursales" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jButton15.setText("Editar matriz");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
@@ -254,6 +259,11 @@ public class Vista extends javax.swing.JFrame {
         });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sucursales" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jButton16.setText("Editar matriz");
         jButton16.addActionListener(new java.awt.event.ActionListener() {
@@ -322,13 +332,10 @@ public class Vista extends javax.swing.JFrame {
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(63, 63, 63)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(63, 63, 63)
-                                                .addComponent(jLabel6))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGap(63, 63, 63)
-                                                .addComponent(jLabel4)))
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addGap(50, 50, 50))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(44, 44, 44)
@@ -540,12 +547,12 @@ public class Vista extends javax.swing.JFrame {
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
-        this.banker.editarMatrizPanel(jTextArea1, jComboBox1, this.banker.max);
+        this.banker.editarMatrizPanel(reqTextArea, jComboBox1, this.banker.max);
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
-        this.banker.editarMatrizPanel(jTextArea2, jComboBox2, this.banker.inicial);
+        this.banker.editarMatrizPanel(inicialTextArea, jComboBox2, this.banker.inicial);
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
@@ -557,9 +564,17 @@ public class Vista extends javax.swing.JFrame {
         // TODO add your handling code here:
         String respuesta = JOptionPane.showInputDialog("Ingrese el nombre de la nueva sucursal: ");
         this.banker.agregarSucursal(respuesta);
-        this.banker.PrintIniciales(jTextArea2);
-        this.banker.PrintRequerido(jTextArea1);
+        this.banker.printMatrix(inicialTextArea, banker.inicial);
+        this.banker.printMatrix(reqTextArea, banker.max);
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -597,6 +612,7 @@ public class Vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea inicialTextArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -626,8 +642,6 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -635,5 +649,6 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextArea reqTextArea;
     // End of variables declaration//GEN-END:variables
 }
