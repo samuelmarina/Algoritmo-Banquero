@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class Banker {
 
@@ -30,20 +34,69 @@ public class Banker {
     public Banker() {
         this.inicializarValores(p, r);
     }
+
+     /**
+     * Organiza la matriz inicial
+     * @param area TextArea que se mostrara
+     */
     
-    public void Print(JTextArea area){
+    public void PrintIniciales(JTextArea area){
         String text = "";
         for (int i = 0; i < r; i++) {
             text += "\t" + this.empleados.get(i).charAt(0);
         }
+
+        text += "\n";
         for (int i = 0; i < p; i++) {
             text += "\n" + this.sucursales.get(i).charAt(0);
             for (int j = 0; j < r; j++) {
                 text += "\t" + inicial.get(i).get(j);
             }
+
+            text += "\t" + "\n";
         }
         
         area.setText(text);
+    }
+    
+     /**
+     * Organiza la matriz de requeridos
+     * @param area TextArea que se mostrara
+     */
+    
+    public void PrintRequerido(JTextArea area){
+        String text = "";
+        for (int i = 0; i < r; i++) {
+            text += "\t" + this.empleados.get(i).charAt(0);
+        }
+        text += "\n";
+        for (int i = 0; i < p; i++) {
+            text += "\n" + this.sucursales.get(i).charAt(0);
+            for (int j = 0; j < r; j++) {
+                text += "\t" + max.get(i).get(j);
+            }
+            text += "\t" + "\n";
+        }
+        
+        area.setText(text);
+    }
+    
+     /**
+     * Modifica la sucursal segun input de usuario
+     * @param area TextArea que se modificara
+     * @param box ComboBox con eleccion del usuario
+     * @param matrz matriz a editar
+     */
+    
+    public void editarMatrizPanel(JTextArea area, JComboBox box, ArrayList matriz){
+        int sucursal = box.getSelectedIndex()-1;
+        area.setText("");
+        this.empleados.forEach((e) -> {
+            String respuesta = JOptionPane.showInputDialog("Ingrese cantidad de empleados de " + e +": ");
+            if((respuesta) != ""){
+                this.editarMatriz(matriz, sucursal, this.empleados.indexOf(e), Integer.parseInt(respuesta));}
+        });
+        this.PrintRequerido(area);
     }
     
     public void Test(){
@@ -211,6 +264,7 @@ public class Banker {
      * Agregar una nueva sucursal a las matrices
      * @param name el nombre de la sucursal
      */
+    
     public void agregarSucursal(String name){
         this.p += 1;
         this.sucursales.add(name);
@@ -225,8 +279,8 @@ public class Banker {
     /**
      * Editar una posición específica en la matriz
      * @param matriz matriz a modificar
-     * @param x pos. x en la matriz
-     * @param y pos. y en la mtriz
+     * @param x pos. x en la matriz sucursales
+     * @param y pos. y en la matriz empleados
      * @param value valor nuevo a sustituir
      */
     public void editarMatriz(ArrayList<ArrayList<Integer>> matriz, int x, int y, int value){

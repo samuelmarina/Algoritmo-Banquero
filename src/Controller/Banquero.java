@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.Banker;
+import View.Vista;
 
 /**
  *
@@ -17,8 +18,7 @@ public class Banquero {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Banker b = new Banker();
-       b.Test();
+       Vista w = new Vista();
     }
     
 }
