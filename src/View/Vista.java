@@ -96,6 +96,7 @@ public class Vista extends javax.swing.JFrame {
         jButton16 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -539,13 +540,17 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
-        this.banker.editarMatrizPanel(jTextArea1, jComboBox1, this.banker.max);
+        // TODO add your handling code here:       
+        if(jComboBox1.getSelectedIndex() > 0){
+            this.banker.editarMatrizPanel(jTextArea1, jComboBox1, this.banker.max);
+        }
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
-        this.banker.editarMatrizPanel(jTextArea2, jComboBox2, this.banker.inicial);
+        if(jComboBox1.getSelectedIndex() > 0){
+            this.banker.editarMatrizPanel(jTextArea2, jComboBox2, this.banker.inicial);
+        }
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
