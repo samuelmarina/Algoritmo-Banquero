@@ -17,8 +17,7 @@ public class Banquero {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Banker b = new Banker();
-        b.Test();
+       Banker b = new Banker();
        
     }
     

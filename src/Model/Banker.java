@@ -7,26 +7,21 @@ import java.util.HashMap;
 
 public class Banker {
 
-    int p = 6;  //Numero de procesos (sucursales)
-    int r = 6;  //Numero de recursos (empleados)
-
-    //Matrices
-          //Matriz de requerimiento
-//    int[][] max;                //Matriz de cantidad de empleados a necesitar
-//    int[][] inicial;            //Matriz inicial (indicada por el usuario)
+    public int p = 6;  //Numero de procesos (sucursales)
+    public int r = 6;  //Numero de recursos (empleados)
     
     //Matrices
-    int[][] requerimiento;
-    ArrayList<ArrayList<Integer>> max = new ArrayList<>();
-    ArrayList<ArrayList<Integer>> inicial = new ArrayList<>();
+    public int[][] requerimiento;
+    public ArrayList<ArrayList<Integer>> max = new ArrayList<>();
+    public ArrayList<ArrayList<Integer>> inicial = new ArrayList<>();
     
-    int[] disp; //Recursos disponibles
-    int[] secuencia;
+    public int[] disp; //Recursos disponibles
+    public int[] secuencia;
     
-    ArrayList<String> sec = new ArrayList<>();
+    public ArrayList<String> sec = new ArrayList<>();
     
-    ArrayList<String> sucursales = new ArrayList<>();
-    ArrayList<String> empleados = new ArrayList<>();
+    public ArrayList<String> sucursales = new ArrayList<>();
+    public ArrayList<String> empleados = new ArrayList<>();
  
     
     public Banker() {
@@ -95,6 +90,8 @@ public class Banker {
     /**
      * Algoritmo del banquero que indica si existe
      * una secuencia segura para evitar un interbloqueo
+     * @return la secuencia, en caso de existir. De lo contrario,
+     * interbloqueo
      */
     public String safety() {
         this.secuencia = new int[p];
@@ -190,6 +187,41 @@ public class Banker {
      */
     public void eliminarEmpleado(int pos){
         disp[pos] -= 1;
+    }
+    
+    /**
+     * Agregar una nueva sucursal a las matrices
+     * @param name el nombre de la sucursal
+     */
+    public void agregarSucursal(String name){
+        this.p += 1;
+        this.sucursales.add(name);
+        this.inicial.add(new ArrayList<>());
+        this.max.add(new ArrayList<>());
+        for (int i = 0; i < r; i++) {
+            inicial.get(inicial.size()-1).add(0);
+            max.get(max.size()-1).add(0);
+        }
+    }
+    
+    /**
+     * Editar una posición específica en la matriz
+     * @param matriz matriz a modificar
+     * @param x pos. x en la matriz
+     * @param y pos. y en la mtriz
+     * @param value valor nuevo a sustituir
+     */
+    public void editarMatriz(ArrayList<ArrayList<Integer>> matriz, int x, int y, int value){
+        matriz.get(x).set(y, value);
+    }
+    
+    /**
+     * Ejecuta el algoritmo del banquero
+     * @return el resultado del algoritmo (secuencia o interbloqueo)
+     */
+    public String mostrarSecuencia(){
+        calcularRequerimiento();
+        return safety();
     }
 
 }
