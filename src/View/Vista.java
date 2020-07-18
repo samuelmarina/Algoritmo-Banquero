@@ -555,7 +555,7 @@ public class Vista extends javax.swing.JFrame {
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
 
-        if(jComboBox1.getSelectedIndex() > 0){
+        if(jComboBox2.getSelectedIndex() > 0){
             this.banker.editarMatrizPanel(inicialTextArea, jComboBox2, this.banker.inicial);
         }
     }//GEN-LAST:event_jButton16ActionPerformed

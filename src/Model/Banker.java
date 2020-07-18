@@ -74,10 +74,16 @@ public class Banker {
             if(respuesta == null){
                 break;
             }
+            boolean flag = false;
             while(!isPositiveNumeric(respuesta)){
                 JOptionPane.showMessageDialog(null, "Lo que ingresó es inválido. Inténtelo de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
                 respuesta = JOptionPane.showInputDialog("Ingrese cantidad de empleados de " + empleados.get(i) +": ");
+                if(respuesta == null){
+                    flag = true;
+                    break;
+                }
             }
+            if(flag) break;
             this.editarMatriz(matriz, sucursal, i, Integer.parseInt(respuesta));
         }
         this.printMatrix(area, matriz);
@@ -170,6 +176,7 @@ public class Banker {
      */
     public String safety() {
         this.secuencia = new int[p];
+        this.sec = new ArrayList<>();
         
         int count = 0;
 
