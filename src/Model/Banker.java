@@ -44,7 +44,7 @@ public class Banker {
     public void inicializarSucursales(){
         String[] temp = {
             "Macaracuay",
-            "Vizcara",
+            "Vizcaya",
             "Las Mercedes",
             "Santa Paula",
             "Chuao",
@@ -155,10 +155,8 @@ public class Banker {
             String res = "Secuencia: ";
             for (int i = 0; i < p; i++) {
                 res += this.sec.get(i);
-//                System.out.print("P" + secuencia[i]);
                 if (i != p - 1) {
                     res += " -> ";
-//                    System.out.println(" -> ");
                 }
             }
             
