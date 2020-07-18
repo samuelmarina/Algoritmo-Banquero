@@ -11,26 +11,31 @@ public class Banker {
     int r = 6;  //Numero de recursos (empleados)
 
     //Matrices
-//    int[][] requerimiento;      //Matriz de requerimiento
+          //Matriz de requerimiento
 //    int[][] max;                //Matriz de cantidad de empleados a necesitar
 //    int[][] inicial;            //Matriz inicial (indicada por el usuario)
     
     //Matrices
-    ArrayList<ArrayList<Integer>> requerimiento = new ArrayList<>();
+    int[][] requerimiento;
     ArrayList<ArrayList<Integer>> max = new ArrayList<>();
     ArrayList<ArrayList<Integer>> inicial = new ArrayList<>();
     
     int[] disp; //Recursos disponibles
-    int[] secuencia;    //Cambiar a lista
+    int[] secuencia;
+    
+    ArrayList<String> sec = new ArrayList<>();
     
     ArrayList<String> sucursales = new ArrayList<>();
     ArrayList<String> empleados = new ArrayList<>();
  
     
     public Banker() {
-//        this.requerimiento = new int[p][r];
-//        this.secuencia = new int[p];
         this.inicializarValores(p, r);
+    }
+    
+    public void Test(){
+        this.calcularRequerimiento();
+        System.out.println(this.safety());
     }
     
     /**
@@ -70,14 +75,13 @@ public class Banker {
      * @param p cantidad de procesos (sucursales)
      * @param r cantidad de recursos (empleados)
      */
-    public void inicializarValores(int p, int r) {
-//        inicial = new int[p][r];
-//        max = new int[p][r];
-//        
+    public void inicializarValores(int p, int r) {        
         for (int i = 0; i < p; i++) {
+            inicial.add(new ArrayList<>());
+            max.add(new ArrayList<>());
             for (int j = 0; j < r; j++) {
-                inicial.get(i).set(j, 0);
-                max.get(i).set(j, 0);
+                inicial.get(i).add(0);
+                max.get(i).add(0);
             }
         }
         
@@ -87,11 +91,14 @@ public class Banker {
         this.inicializarSucursales();
         this.inicializarEmpleados();
     }
+    
     /**
      * Algoritmo del banquero que indica si existe
      * una secuencia segura para evitar un interbloqueo
      */
-    public void safety() {
+    public String safety() {
+        this.secuencia = new int[p];
+        
         int count = 0;
 
         //Inicializamos el arreglo indicando que no se ha
@@ -120,20 +127,21 @@ public class Banker {
                         //En caso de que la cantidad de empleados necesaria para que
                         //la sucursal funcione es menor que los que se encuentran,
                         //entonces ocurrió un interbloqueo
-//                        if (requerimiento[i][j] > work[j]) break; 
-                        if(requerimiento.get(i).get(j) > work[j]) break;
+                        if (requerimiento[i][j] > work[j]) break; 
+//                        if(requerimiento.get(i).get(j) > work[j]) break;
                     }
                     
                     //Si esto se cumple, entonces se pudo cubrir la cantidad de empleados
                     //necesaria para que la sucursal entrara en funcionamiento
                     if (j == r) {
                         secuencia[count++] = i;
+                        sec.add(sucursales.get(i));
                         visited[i] = true;
                         flag = false;
                         
                         //Actualizamos ahora la matriz de empleados disponibles
                         for (j = 0; j < r; j++) {
-                            work[j] = work[j] + inicial[i][j];
+                            work[j] = work[j] + inicial.get(i).get(j);
                         }
                     }
                 }
@@ -142,15 +150,19 @@ public class Banker {
         }
 
         if (count < p) {
-            System.out.println("Unsafe");
+            return "Ocurrió un interbloqueo. No existe frecuencia que ofrezca solución";
         } else {
-            System.out.println("Safe");
+            String res = "Secuencia: ";
             for (int i = 0; i < p; i++) {
-                System.out.print("P" + secuencia[i]);
+                res += this.sec.get(i);
+//                System.out.print("P" + secuencia[i]);
                 if (i != p - 1) {
-                    System.out.println(" -> ");
+                    res += " -> ";
+//                    System.out.println(" -> ");
                 }
             }
+            
+            return res;
         }
     }
     
@@ -158,9 +170,10 @@ public class Banker {
      * Calcula la matriz de requerimientos (max-inicial)
      */
     public void calcularRequerimiento() {
+        this.requerimiento = new int[p][r];
         for (int i = 0; i < p; i++) {
             for (int j = 0; j < r; j++) {
-                requerimiento[i][j] = max[i][j] - inicial[i][j];
+                requerimiento[i][j] = max.get(i).get(j) - inicial.get(i).get(j);
             }
         }
     }
