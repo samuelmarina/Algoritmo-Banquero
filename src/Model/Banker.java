@@ -90,7 +90,6 @@ public class Banker {
     
     public void editarMatrizPanel(JTextArea area, JComboBox box, ArrayList matriz){
         int sucursal = box.getSelectedIndex()-1;
-        area.setText("");
         this.empleados.forEach((e) -> {
             String respuesta = JOptionPane.showInputDialog("Ingrese cantidad de empleados de " + e +": ");
             if((respuesta) != ""){

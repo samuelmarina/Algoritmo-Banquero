@@ -196,7 +196,7 @@ public class Vista extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jLabel7.setText("Cajeros");
+        jLabel7.setText("Gerencia");
 
         jTextField5.setText("jTextField1");
 
@@ -323,13 +323,10 @@ public class Vista extends javax.swing.JFrame {
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(63, 63, 63)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(63, 63, 63)
-                                                .addComponent(jLabel6))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGap(63, 63, 63)
-                                                .addComponent(jLabel4)))
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addGap(50, 50, 50))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(44, 44, 44)
