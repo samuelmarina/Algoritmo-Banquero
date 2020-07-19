@@ -579,15 +579,17 @@ public class Vista extends javax.swing.JFrame {
         // TODO add your handling code here:
         String respuesta = JOptionPane.showInputDialog("Ingrese el nombre de la nueva sucursal: ");
         if(respuesta != null){
+            while (respuesta.equals("")) {
+                JOptionPane.showMessageDialog(this, "Lo que ingreso fue invalido. Intentelo de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+                respuesta = JOptionPane.showInputDialog("Ingrese el nombre de la nueva sucursal: ");
+                if(respuesta == null) return;
+            }
             this.banker.agregarSucursal(respuesta);
             this.banker.printMatrix(inicialTextArea, banker.inicial);
             this.banker.printMatrix(reqTextArea, banker.max);
             jComboBox1.addItem(respuesta);
             jComboBox2.addItem(respuesta);
         } 
-//        if(!respuesta.isEmpty() && respuesta == null){
-//            
-//        }
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

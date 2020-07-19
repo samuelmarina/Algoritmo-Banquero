@@ -19,7 +19,6 @@ public class Banker {
     //Matrices
     public int[][] requerimiento;
     public ArrayList<ArrayList<Integer>> max = new ArrayList<>();
-//    max.get(numDeLaSuc).set(numDelEmp, numAPasar)
     public ArrayList<ArrayList<Integer>> inicial = new ArrayList<>();
     
     public int[] disp; //Recursos disponibles
@@ -40,7 +39,6 @@ public class Banker {
      * @param area TextArea que se mostrara
      * @param matrix matriz a imprimir
      */
-    
     public void printMatrix(JTextArea area, ArrayList<ArrayList<Integer>> matrix){
         String text = "";
         for (int i = 0; i < r; i++) {
@@ -66,7 +64,6 @@ public class Banker {
      * @param box ComboBox con eleccion del usuario
      * @param matrz matriz a editar
      */
-    
     public void editarMatrizPanel(JTextArea area, JComboBox box, ArrayList matriz){
         int sucursal = box.getSelectedIndex()-1;
         for (int i = 0; i < r; i++) {
@@ -107,11 +104,6 @@ public class Banker {
             return false;
         }
         return true;
-    }
-    
-    public void Test(){
-        this.calcularRequerimiento();
-        System.out.println(this.safety());
     }
     
     /**
